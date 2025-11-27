@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title> LIGA STRIKE GRUPO A - 5 QUEDAS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a, #2d1b1b);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff4444;
+            text-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+        
+        .abas {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .aba {
+            padding: 12px 24px;
+            background: #333;
+            border: none;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .aba:hover {
+            background: #555;
+            transform: translateY(-2px);
+        }
+        
+        .aba.ativa {
+            background: #ff4444;
+            box-shadow: 0 0 15px rgba(255, 68, 68, 0.7);
+        }
+        
+        .conteudo-aba {
+            display: none;
+            background: rgba(40, 40, 40, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 68, 68, 0.3);
+        }
+        
+        .conteudo-aba.ativa {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+        
+        th, td {
+            border: 1px solid #555;
+            padding: 8px 12px;
+            text-align: center;
+        }
+        
+        th {
+            background: #ff4444;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background: rgba(60, 60, 60, 0.5);
+        }
+        
+        tr:hover {
+            background: rgba(255, 68, 68, 0.2);
+        }
+        
+        input {
+            width: 100%;
+            padding: 6px;
+            background: #222;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #ff4444;
+            box-shadow: 0 0 5px rgba(255, 68, 68, 0.5);
+        }
+        
+        .total {
+            font-weight: bold;
+            background: rgba(255, 68, 68, 0.3);
+        }
+        
+        .tabela-final {
+            background: rgba(30, 30, 30, 0.95);
+            border: 2px solid #ff4444;
+        }
+        
+        .tabela-final th {
+            background: #c62828;
+            font-size: 1.1em;
+            padding: 12px;
+        }
+        
+        .tabela-final tr:nth-child(1) {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            font-weight: bold;
+        }
+        
+        .tabela-final tr:nth-child(2) {
+            background: linear-gradient(45deg, #c0c0c0, #e0e0e0);
+            color: #000;
+        }
+        
+        .tabela-final tr:nth-child(3) {
+            background: linear-gradient(45deg, #cd7f32, #e59e5c);
+            color: #000;
+        }
+        
+        .acoes {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin: 0 10px;
+        }
+        
+        .btn:hover {
+            background: #ff6666;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 68, 68, 0.4);
+        }
+        
+        .btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .aviso {
+            text-align: center;
+            color: #ff8888;
+            font-style: italic;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏆 LIGA STRIKE GRUPO A - 5 QUEDAS</h1>
+        
+        <div class="abas">
+            <button class="aba ativa" onclick="mudarAba(1)">Queda 1</button>
+            <button class="aba" onclick="mudarAba(2)">Queda 2</button>
+            <button class="aba" onclick="mudarAba(3)">Queda 3</button>
+            <button class="aba" onclick="mudarAba(4)">Queda 4</button>
+            <button class="aba" onclick="mudarAba(5)">Queda 5</button>
+            <button class="aba" onclick="mudarAba(6)">🏁 CLASSIFICAÇÃO FINAL</button>
+        </div>
+        
+        <!-- Queda 1 -->
+        <div id="queda1" class="conteudo-aba ativa">
+            <h2>📊 QUEDA 1</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Posição</th>
+                        <th>Nome do Time</th>
+                        <th>Kills</th>
+                        <th>Pontos da Queda</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaQueda1">
+                    <!-- Preenchido pelo JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Queda 2 -->
+        <div id="queda2" class="conteudo-aba">
+            <h2>📊 QUEDA 2</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Posição</th>
+                        <th>Nome do Time</th>
+                        <th>Kills</th>
+                        <th>Pontos da Queda</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaQueda2">
+                    <!-- Preenchido pelo JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Queda 3 -->
+        <div id="queda3" class="conteudo-aba">
+            <h2>📊 QUEDA 3</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Posição</th>
+                        <th>Nome do Time</th>
+                        <th>Kills</th>
+                        <th>Pontos da Queda</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaQueda3">
+                    <!-- Preenchido pelo JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Queda 4 -->
+        <div id="queda4" class="conteudo-aba">
+            <h2>📊 QUEDA 4</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Posição</th>
+                        <th>Nome do Time</th>
+                        <th>Kills</th>
+                        <th>Pontos da Queda</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaQueda4">
+                    <!-- Preenchido pelo JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Queda 5 -->
+        <div id="queda5" class="conteudo-aba">
+            <h2>📊 QUEDA 5</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Posição</th>
+                        <th>Nome do Time</th>
+                        <th>Kills</th>
+                        <th>Pontos da Queda</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaQueda5">
+                    <!-- Preenchido pelo JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Classificação Final -->
+        <div id="final" class="conteudo-aba">
+            <h2>🏆 CLASSIFICAÇÃO FINAL</h2>
+            <div class="aviso">📢 TABELA SOMENTE PARA VISUALIZAÇÃO</div>
+            <table class="tabela-final">
+                <thead>
+                    <tr>
+                        <th>Posição Final</th>
+                        <th>Nome do Time</th>
+                        <th>Total de Pontos</th>
+                        <th>Queda 1</th>
+                        <th>Queda 2</th>
+                        <th>Queda 3</th>
+                        <th>Queda 4</th>
+                        <th>Queda 5</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaFinal">
+                    <!-- Preenchido pelo JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="acoes">
+            <button class="btn" onclick="calcularTodasQuedas()">🔄 Calcular Todas as Quedas</button>
+            <button class="btn" onclick="gerarClassificacaoFinal()">🏁 Gerar Classificação Final</button>
+            <button class="btn" onclick="limparTudo()">🗑️ Limpar Tudo</button>
+        </div>
+    </div>
+
+    <script>
+        // Sistema de pontos por posição
+        const pontosPorPosicao = {
+            1: 12, 2: 9, 3: 8, 4: 7, 5: 6,
+            6: 5, 7: 4, 8: 3, 9: 2, 10: 1,
+            11: 0, 12: 0
+        };
+
+        const numTimes = 12;
+        const dadosCampeonato = {};
+
+        // Inicializar estrutura de dados
+        function inicializarDados() {
+            for (let i = 1; i <= numTimes; i++) {
+                dadosCampeonato[`Time ${i}`] = {
+                    pontos: Array(5).fill(0),
+                    total: 0
+                };
+            }
+            criarTabelas();
+        }
+
+        // Criar todas as tabelas das quedas
+        function criarTabelas() {
+            for (let queda = 1; queda <= 5; queda++) {
+                const tabela = document.getElementById(`tabelaQueda${queda}`);
+                tabela.innerHTML = '';
+                
+                for (let i = 1; i <= numTimes; i++) {
+                    const tr = document.createElement('tr');
+                    
+                    // Posição
+                    const tdPos = document.createElement('td');
+                    tdPos.textContent = i + 'º';
+                    tr.appendChild(tdPos);
+                    
+                    // Nome do Time
+                    const tdNome = document.createElement('td');
+                    const inputNome = document.createElement('input');
+                    inputNome.type = 'text';
+                    inputNome.placeholder = `Time ${i}`;
+                    inputNome.dataset.time = `Time ${i}`;
+                    inputNome.dataset.queda = queda;
+                    tdNome.appendChild(inputNome);
+                    tr.appendChild(tdNome);
+                    
+                    // Kills
+                    const tdKills = document.createElement('td');
+                    const inputKills = document.createElement('input');
+                    inputKills.type = 'number';
+                    inputKills.min = 0;
+                    inputKills.value = 0;
+                    inputKills.dataset.time = `Time ${i}`;
+                    inputKills.dataset.queda = queda;
+                    tdKills.appendChild(inputKills);
+                    tr.appendChild(tdKills);
+                    
+                    // Pontos da Queda
+                    const tdPontos = document.createElement('td');
+                    tdPontos.className = 'total';
+                    tdPontos.textContent = '0';
+                    tdPontos.dataset.time = `Time ${i}`;
+                    tdPontos.dataset.queda = queda;
+                    tr.appendChild(tdPontos);
+                    
+                    tabela.appendChild(tr);
+                }
+            }
+        }
+
+        // Calcular pontos de todas as quedas
+        function calcularTodasQuedas() {
+            for (let queda = 1; queda <= 5; queda++) {
+                calcularQueda(queda);
+            }
+            alert('✅ Todas as quedas foram calculadas!');
+        }
+
+        // Calcular pontos de uma queda específica
+        function calcularQueda(queda) {
+            const inputs = document.querySelectorAll(`input[data-queda="${queda}"]`);
+            const dadosQueda = {};
+            
+            // Coletar dados
+            inputs.forEach(input => {
+                const time = input.dataset.time;
+                if (!dadosQueda[time]) dadosQueda[time] = {};
+                
+                if (input.type === 'text') {
+                    dadosQueda[time].nome = input.value || time;
+                } else {
+                    dadosQueda[time].kills = parseInt(input.value) || 0;
+                }
+            });
+            
+            // Calcular pontos (assumindo ordem de posição)
+            let posicao = 1;
+            for (const time in dadosQueda) {
+                const pontosPos = pontosPorPosicao[posicao] || 0;
+                const pontosKills = dadosQueda[time].kills || 0;
+                const total = pontosPos + pontosKills;
+                
+                // Atualizar display
+                const tdPontos = document.querySelector(`td[data-time="${time}"][data-queda="${queda}"]`);
+                if (tdPontos) tdPontos.textContent = total;
+                
+                // Salvar nos dados do campeonato
+                if (dadosCampeonato[time]) {
+                    dadosCampeonato[time].pontos[queda-1] = total;
+                }
+                
+                posicao++;
+            }
+        }
+
+        // Gerar classificação final
+        function gerarClassificacaoFinal() {
+            // Calcular totais
+            for (const time in dadosCampeonato) {
+                dadosCampeonato[time].total = dadosCampeonato[time].pontos.reduce((a, b) => a + b, 0);
+            }
+            
+            // Ordenar por total (decrescente)
+            const timesOrdenados = Object.entries(dadosCampeonato)
+                .sort(([, a], [, b]) => b.total - a.total);
+            
+            // Atualizar tabela final
+            const tabelaFinal = document.getElementById('tabelaFinal');
+            tabelaFinal.innerHTML = '';
+            
+            timesOrdenados.forEach(([nomeTime, dados], index) => {
+                const tr = document.createElement('tr');
+                
+                // Posição Final
+                const tdPos = document.createElement('td');
+                tdPos.textContent = (index + 1) + 'º';
+                tr.appendChild(tdPos);
+                
+                // Nome do Time
+                const tdNome = document.createElement('td');
+                tdNome.textContent = nomeTime;
+                tr.appendChild(tdNome);
+                
+                // Total de Pontos
+                const tdTotal = document.createElement('td');
+                tdTotal.textContent = dados.total;
+                tdTotal.style.fontWeight = 'bold';
+                tdTotal.style.fontSize = '1.1em';
+                tr.appendChild(tdTotal);
+                
+                // Pontos de cada queda
+                for (let i = 0; i < 5; i++) {
+                    const tdQueda = document.createElement('td');
+                    tdQueda.textContent = dados.pontos[i];
+                    tr.appendChild(tdQueda);
+                }
+                
+                tabelaFinal.appendChild(tr);
+            });
+            
+            alert('🏆 Classificação Final Gerada!');
+        }
+
+        // Limpar todos os dados
+        function limparTudo() {
+            if (confirm('⚠️ Tem certeza que quer limpar TODOS os dados?')) {
+                inicializarDados();
+                document.getElementById('tabelaFinal').innerHTML = '';
+                alert('🗑️ Todos os dados foram limpos!');
+            }
+        }
+
+        // Mudar entre abas
+        function mudarAba(aba) {
+            // Esconder todas as abas
+            document.querySelectorAll('.conteudo-aba').forEach(div => {
+                div.classList.remove('ativa');
+            });
+            
+            // Remover classe ativa de todos os botões
+            document.querySelectorAll('.aba').forEach(btn => {
+                btn.classList.remove('ativa');
+            });
+            
+            // Mostrar aba selecionada
+            let abaId;
+            switch(aba) {
+                case 1: abaId = 'queda1'; break;
+                case 2: abaId = 'queda2'; break;
+                case 3: abaId = 'queda3'; break;
+                case 4: abaId = 'queda4'; break;
+                case 5: abaId = 'queda5'; break;
+                case 6: abaId = 'final'; break;
+            }
+            
+            document.getElementById(abaId).classList.add('ativa');
+            document.querySelectorAll('.aba')[aba-1].classList.add('ativa');
+        }
+
+        // Inicializar quando a página carregar
+        window.onload = inicializarDados;
+    </script>
+</body>
+</html>
